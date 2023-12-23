@@ -1,27 +1,12 @@
-import numpy as np
 import tensorflow as tf
 import sys
 import os
-
-
-
 # Get the parent directory
 current = os.path.dirname(os.path.realpath(__file__))
-
-# Getting the parent directory name
-# where the current directory is present.
 parent = os.path.dirname(current)
- 
-# adding the parent directory to 
-# the sys.path.
 sys.path.append(parent)
- 
-# setting path
-# sys.path.append(directory.parent.parent)
- 
-
 from BaseAttention import BaseAttention
-from PositonalEmbedding import PositionalEmbedding
+
 
 
 
@@ -55,6 +40,9 @@ class CausalSelfAttention(BaseAttention):
     
 
 if __name__ == "__main__":
+    import numpy as np
+    from PositonalEmbedding import PositionalEmbedding
+    
     decoder_vocab_size = 1100
     d_model = 512
 

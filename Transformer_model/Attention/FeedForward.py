@@ -1,6 +1,11 @@
-import numpy as np
 import tensorflow as tf
-from PositonalEmbedding import PositonalEmbedding
+import sys
+import os
+# Get the parent directory
+current = os.path.dirname(os.path.realpath(__file__))
+parent = os.path.dirname(current)
+sys.path.append(parent)
+
 
 
 
@@ -50,19 +55,24 @@ class FeedForward(tf.keras.layers.Layer):
         return x
     
 
-encoder_vocab_size = 1000
-d_model = 512
-vocab_size = 1000
 
-encoder_embedding_layer = PositonalEmbedding(vocab_size, d_model)
+if __name__ == "__main__":
+    import numpy as np
+    from PositonalEmbedding import PositionalEmbedding
 
-random_encoder_input = np.random.randint(0, encoder_vocab_size, size=(1, 100))
+    encoder_vocab_size = 1000
+    d_model = 512
+    
 
-encoder_embeddings = encoder_embedding_layer(random_encoder_input)
+    encoder_embedding_layer = PositionalEmbedding(encoder_vocab_size, d_model)
 
-print("encoder_embeddings shape", encoder_embeddings.shape)
+    random_encoder_input = np.random.randint(0, encoder_vocab_size, size=(1, 100))
 
-feed_forward_layer = FeedForward(d_model, dff=2048)
-feed_forward_output = feed_forward_layer(encoder_embeddings)
+    encoder_embeddings = encoder_embedding_layer(random_encoder_input)
 
-print("feed_forward_output shape", feed_forward_output.shape)
+    print("encoder_embeddings shape", encoder_embeddings.shape)
+
+    feed_forward_layer = FeedForward(d_model, dff=2048)
+    feed_forward_output = feed_forward_layer(encoder_embeddings)
+
+    print("feed_forward_output shape", feed_forward_output.shape)

@@ -1,7 +1,11 @@
-import numpy as np
 import tensorflow as tf
-from .BaseAttention import BaseAttention
-from ..PositonalEmbedding import PositionalEmbedding
+import sys
+import os
+# Get the parent directory
+current = os.path.dirname(os.path.realpath(__file__))
+parent = os.path.dirname(current)
+sys.path.append(parent)
+from BaseAttention import BaseAttention
 
 
 class GlobalSelfAttention(BaseAttention):
@@ -32,19 +36,23 @@ class GlobalSelfAttention(BaseAttention):
         x = self.layernorm(x)
         return x
     
-encoder_vocab_size = 1000
-vocab_size = 1000
-d_model = 512
+if __name__ == "__main__":
+    import numpy as np
+    from PositonalEmbedding import PositionalEmbedding
 
-encoder_embedding_layer = PositionalEmbedding(vocab_size, d_model)
+    encoder_vocab_size = 1000
+    
+    d_model = 512
 
-random_encoder_input = np.random.randint(0, encoder_vocab_size, size=(1, 100))
+    encoder_embedding_layer = PositionalEmbedding(encoder_vocab_size, d_model)
 
-encoder_embeddings = encoder_embedding_layer(random_encoder_input)
+    random_encoder_input = np.random.randint(0, encoder_vocab_size, size=(1, 100))
 
-print("encoder_embeddings shape", encoder_embeddings.shape)
+    encoder_embeddings = encoder_embedding_layer(random_encoder_input)
 
-cross_attention_layer = GlobalSelfAttention(num_heads=2, key_dim=512)
-cross_attention_output = cross_attention_layer(encoder_embeddings)
+    print("encoder_embeddings shape", encoder_embeddings.shape)
 
-print("global_self_attention_output shape", cross_attention_output.shape)
+    cross_attention_layer = GlobalSelfAttention(num_heads=2, key_dim=512)
+    cross_attention_output = cross_attention_layer(encoder_embeddings)
+
+    print("global_self_attention_output shape", cross_attention_output.shape)

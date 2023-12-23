@@ -1,7 +1,11 @@
-import numpy as np
 import tensorflow as tf
+import sys
+import os
+# Get the parent directory
+current = os.path.dirname(os.path.realpath(__file__))
+parent = os.path.dirname(current)
+sys.path.append(parent)
 from BaseAttention import BaseAttention
-from ...Transformer_model.PositonalEmbedding import PositionalEmbedding
 
 import os
 
@@ -44,10 +48,12 @@ class CrossAttention(BaseAttention):
 
 
 
-if __name__ == "__main__":   
+if __name__ == "__main__":
+    import numpy as np
+    from PositonalEmbedding import PositionalEmbedding  
 
     encoder_vocab_size = 1000
-    vocab_size = 1000
+    
     decoder_vocab_size = 1100
     d_model = 512
 
