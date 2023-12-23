@@ -1,6 +1,11 @@
 import numpy as np
 import tensorflow as tf
-from PositionaEncoding import positional_encoding
+import os
+import sys
+# Get the project directory
+project_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append(project_dir)
+from Transformer_model.PositionaEncoding import positional_encoding
 
 
 class PositionalEmbedding(tf.keras.layers.Layer):
@@ -48,13 +53,14 @@ class PositionalEmbedding(tf.keras.layers.Layer):
         x = x + self.pos_encoding[tf.newaxis, :length, :]
         return x
     
-vocab_size = 1000
-d_model = 512
+if __name__ == "__main__":
+    vocab_size = 1000
+    d_model = 512
 
-embedding_layer = PositionalEmbedding(vocab_size, d_model)
+    embedding_layer = PositionalEmbedding(vocab_size, d_model)
 
-random_input = np.random.randint(0, vocab_size, size=(1, 100))
+    random_input = np.random.randint(0, vocab_size, size=(1, 100))
 
-output = embedding_layer(random_input)
-print("random_input shape", random_input.shape)
-print("PositionalEmbedding output", output.shape)
+    output = embedding_layer(random_input)
+    print("random_input shape", random_input.shape)
+    print("PositionalEmbedding output", output.shape)

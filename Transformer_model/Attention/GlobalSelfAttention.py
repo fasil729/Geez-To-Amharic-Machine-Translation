@@ -1,11 +1,10 @@
 import tensorflow as tf
 import sys
 import os
-# Get the parent directory
-current = os.path.dirname(os.path.realpath(__file__))
-parent = os.path.dirname(current)
-sys.path.append(parent)
-from BaseAttention import BaseAttention
+# Get the project directory
+project_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+sys.path.append(project_dir)
+from Transformer_model.Attention.BaseAttention import BaseAttention
 
 
 class GlobalSelfAttention(BaseAttention):
@@ -38,7 +37,7 @@ class GlobalSelfAttention(BaseAttention):
     
 if __name__ == "__main__":
     import numpy as np
-    from PositonalEmbedding import PositionalEmbedding
+    from Transformer_model.PositonalEmbedding import PositionalEmbedding
 
     encoder_vocab_size = 1000
     
